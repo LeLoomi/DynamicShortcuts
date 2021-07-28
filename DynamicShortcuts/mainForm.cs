@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO;
+using System.IO;    //to write read the shortcut
+using System.Diagnostics;   //to launch cmd line
 using System.Windows.Forms;
 
 namespace DynamicShortcutsTheory
@@ -37,8 +38,8 @@ namespace DynamicShortcutsTheory
                 writer.WriteLine("[InternetShortcut]");
                 writer.WriteLine("URL=https://www.icloud.com/calendar/");
                 writer.WriteLine("IconIndex=0");
-                string icon = @"C:\Users\lohre\Code Projects\DynamicShortcutsTheory\DynamicShortcutsTheory\icons\" + numericUpDown1.Value.ToString() + ".ico";
-                writer.WriteLine("IconFile=" + icon);
+                string iconpath = AppDomain.CurrentDomain.BaseDirectory + @"icons\" + numericUpDown1.Value.ToString() + ".ico";
+                writer.WriteLine("IconFile=" + iconpath);
                 writer.WriteLine("HotKey=0");
                 writer.WriteLine("IDList =");
                 writer.Close();
@@ -48,12 +49,15 @@ namespace DynamicShortcutsTheory
         private void updateIcon(string shortcutName, string iconIndex)
         {
             string deskDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string newIconPath = @"IconFile=C:\Users\lohre\Desktop\Dynamic Shortcuts\icons\" + iconIndex + ".ico";
+            string newLine = "IconFile=" + AppDomain.CurrentDomain.BaseDirectory + @"icons\" + iconIndex + ".ico";
 
-            lineChanger(newIconPath, deskDir + "\\" + shortcutName + ".url", 4);
+            lineChanger(newLine, deskDir + "\\" + shortcutName + ".url", 4);
 
-            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\clearIcons.cmd");
-            readLinkToFile("iCloud Calendar");
+            Process reloader = new Process();
+            reloader.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            reloader.StartInfo.FileName = (AppDomain.CurrentDomain.BaseDirectory + @"\clearIcons.cmd");
+            reloader.Start();
+            
         }
 
         //read icon to text file
