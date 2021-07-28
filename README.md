@@ -14,4 +14,5 @@ My goal with this project is to write a Windows service and GUI, which let's you
 - the program can save the raw text content of the shortcut as a .log file, for debug reasons
 
 
+
 *This is a work in progress, using this is not recommended and if anything breaks it is not my resposibility.*
