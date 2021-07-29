@@ -9,9 +9,8 @@ My goal with this project is to write a Windows service and GUI, which let's you
 
 **Current functionality:**
 - the program can change a hardcoded shortcut between two icons, when a button is pressed, this deletes the windows icon cache and reloads the explorer in order to update the icon.
-	- The icon reload part is (automatically) done with the help of Windows' command line
-- the program can create a new hardcoded shortcut by pressing a button, for debug reasons
-- the program can save the raw text content of the shortcut as a .log file, for debug reasons
+	- The program can already reload and replace the icons of the selected shortcut
+- the program can create apple styled calendar icons with code, no internet acces needed. Those icons are with the **correct date and weekday** already!
 
 
 
