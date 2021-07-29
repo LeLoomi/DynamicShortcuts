@@ -6,7 +6,9 @@ My goal with this project is to write a Windows service and GUI, which let's you
 
  - [x] Have the program generate the icons, day of month and weekday incl.
  - [x] The program can replace and reload the shortcut icon
- - [ ] the program automatically generates and sets the icon in the background
+ - [x] the program can automatically generates and set the icon in the background
+ - [ ] GUI to set which shortcut to manage
+ - [ ] create the background service that subs to windows events
 
 
 *This is a work in progress, using this is not recommended and if anything breaks it is not my resposibility.*
