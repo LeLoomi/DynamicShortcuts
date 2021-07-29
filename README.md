@@ -1,17 +1,12 @@
+
 ## DynamicShortcuts
 My goal with this project is to write a Windows service and GUI, which let's you set desktop icons that'll dynamically change (.url's that is). The idea is to port the, for mobile calendar apps common, behaviour of changing the icon according to the current date and weekday since I use an online calendar and I found no way online to do this.
 
-**Intended / planned functionality:**
-- A GUI to
-	- designate which shortcut (.url) you want to dynamically update
-	- add all the icons that are needed for this, if I decide to code for weekdays too then that as well (creating all those icons will be a pain tho, maybe we'll try automated image creation at each (daily) icon update?)
-- A background service that automatically checks your current icon at 00:00 of each day or if you unlock your user account. If the icon is outdated then the icon will be updated.
+**Development Progress**
 
-**Current functionality:**
-- the program can change a hardcoded shortcut between two icons, when a button is pressed, this deletes the windows icon cache and reloads the explorer in order to update the icon.
-	- The program can already reload and replace the icons of the selected shortcut
-- the program can create apple styled calendar icons with code, no internet acces needed. Those icons are with the **correct date and weekday** already!
-
+ - [x] Have the program generate the icons, day of month and weekday incl.
+ - [x] The program can replace and reload the shortcut icon
+ - [ ] the program automatically generates and sets the icon in the background
 
 
 *This is a work in progress, using this is not recommended and if anything breaks it is not my resposibility.*
