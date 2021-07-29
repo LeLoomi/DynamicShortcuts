@@ -12,3 +12,4 @@ My goal with this project is to write a Windows service and GUI, which let's you
 
 
 *This is a work in progress, using this is not recommended and if anything breaks it is not my resposibility.*
+*This project uses the lineChanger code snippet by Bruce Afruz, https://stackoverflow.com/a/35496185, as well as the ImageMagick libraries.*
