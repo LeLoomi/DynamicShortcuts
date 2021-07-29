@@ -35,6 +35,7 @@ namespace DynamicShortcutsTheory
             this.updateButton = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.generateButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@ namespace DynamicShortcutsTheory
             this.createButton.TabIndex = 0;
             this.createButton.Text = "create shortcut";
             this.createButton.UseVisualStyleBackColor = true;
-            this.createButton.Click += new System.EventHandler(this.button1_Click);
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // readButton
             // 
@@ -56,7 +57,7 @@ namespace DynamicShortcutsTheory
             this.readButton.TabIndex = 1;
             this.readButton.Text = "read shortcut";
             this.readButton.UseVisualStyleBackColor = true;
-            this.readButton.Click += new System.EventHandler(this.button2_Click);
+            this.readButton.Click += new System.EventHandler(this.readButton_Click);
             // 
             // updateButton
             // 
@@ -66,7 +67,7 @@ namespace DynamicShortcutsTheory
             this.updateButton.TabIndex = 2;
             this.updateButton.Text = "update shortcut";
             this.updateButton.UseVisualStyleBackColor = true;
-            this.updateButton.Click += new System.EventHandler(this.button3_Click);
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
             // numericUpDown1
             // 
@@ -99,11 +100,22 @@ namespace DynamicShortcutsTheory
             this.label1.TabIndex = 4;
             this.label1.Text = "Icon index";
             // 
+            // generateButton
+            // 
+            this.generateButton.Location = new System.Drawing.Point(34, 142);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(126, 23);
+            this.generateButton.TabIndex = 6;
+            this.generateButton.Text = "generate png";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 147);
+            this.ClientSize = new System.Drawing.Size(330, 203);
+            this.Controls.Add(this.generateButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.updateButton);
@@ -128,6 +140,7 @@ namespace DynamicShortcutsTheory
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button generateButton;
     }
 }
 
