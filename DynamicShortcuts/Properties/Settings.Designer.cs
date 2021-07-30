@@ -22,5 +22,17 @@ namespace DynamicShortcuts.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string savedShotcutPath {
+            get {
+                return ((string)(this["savedShotcutPath"]));
+            }
+            set {
+                this["savedShotcutPath"] = value;
+            }
+        }
     }
 }
