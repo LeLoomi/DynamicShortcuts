@@ -36,7 +36,7 @@ namespace DynamicShortcuts
             // 
             // generateInBackgroundButton
             // 
-            this.generateInBackgroundButton.Location = new System.Drawing.Point(57, 27);
+            this.generateInBackgroundButton.Location = new System.Drawing.Point(62, 34);
             this.generateInBackgroundButton.Name = "generateInBackgroundButton";
             this.generateInBackgroundButton.Size = new System.Drawing.Size(126, 23);
             this.generateInBackgroundButton.TabIndex = 7;
@@ -46,7 +46,7 @@ namespace DynamicShortcuts
             // 
             // fullRunButton
             // 
-            this.fullRunButton.Location = new System.Drawing.Point(57, 56);
+            this.fullRunButton.Location = new System.Drawing.Point(62, 63);
             this.fullRunButton.Name = "fullRunButton";
             this.fullRunButton.Size = new System.Drawing.Size(126, 23);
             this.fullRunButton.TabIndex = 8;
@@ -58,7 +58,7 @@ namespace DynamicShortcuts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(241, 114);
+            this.ClientSize = new System.Drawing.Size(274, 129);
             this.Controls.Add(this.fullRunButton);
             this.Controls.Add(this.generateInBackgroundButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
