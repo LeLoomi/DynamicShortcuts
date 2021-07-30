@@ -4,11 +4,10 @@
 
 using System;
 using System.IO;
-using System.Drawing.Text;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Diagnostics;       //for running the cmd file
-using ImageMagick;
+using System.Drawing.Text;
+using System.Diagnostics;   //for running the cmd file
+using ImageMagick;          //for Icon creation
 
 namespace DynamicShortcuts
 {
@@ -19,7 +18,7 @@ namespace DynamicShortcuts
         {
             //if (!iconUpToDate(filePath)) currently disabled for testing
             //{
-                Console.WriteLine("DynamicShortcuts: Icon is out of date (" + filePath + ").");
+                Console.WriteLine("DynamicShortcuts: Icon is out of date (" + filePath + ")");
 
                 Console.WriteLine("DynamicShortcuts: Generating new icon with the name " + dailyFileName() + "(" + filePath + ")");
                 generateIcon();
@@ -101,6 +100,7 @@ namespace DynamicShortcuts
         }
 
 
+
         //this function updates the shortcut raw to set the new ico path
         public static void updateIcon(string filePath)
         {
@@ -116,6 +116,7 @@ namespace DynamicShortcuts
                 reloader.Start();   //launch the reset cmd file
             }
         }
+
 
 
         //this bool returns true if the icon is currently up to date (via file name check)
@@ -134,12 +135,14 @@ namespace DynamicShortcuts
         }
 
 
+
         //helper function to centralize the naming of the ico file, return the up to date core filename (e.g. "290721-Do"), no extension!
         public static string dailyFileName()
         {
             string tmp = DateTime.Now.ToString("ddMMyy") + "-" + DateTime.Now.ToString("ddd");  //puzzle the filename together
             return tmp; //return the name
         }
+
 
 
         //this function updates a specific line in a document, used to update the raw content of the shortcut. Taken from https://stackoverflow.com/a/35496185

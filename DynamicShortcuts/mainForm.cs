@@ -3,8 +3,6 @@
 // +----------------------------------------------------------------------------------------------+
 
 using System;
-using System.Diagnostics;   //to launch cmd line
-using System.IO;        //to write read the shortcut
 using System.Windows.Forms;
 
 
