@@ -7,6 +7,7 @@ My goal with this project is to write a Windows service and GUI, which let's you
  - [x] The program can replace and reload the shortcut icon
  - [x] the program can automatically generates and set the icon in the background
  - [ ] GUI to set which shortcut to manage
+ - [x] add argument to start program only for updating the icon, no GUI
  - [ ] create the background service that subs to windows events
  - [ ] possible goal: other icon styles presets
 
