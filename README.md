@@ -3,7 +3,7 @@ My goal with this project is to write a Windows service and GUI, which let's you
 
 **Development Progress**
 
-[![GitHub issues](https://img.shields.io/github/issues/LeLoomi/DynamicShortcuts?style=plastic)](https://github.com/LeLoomi/DynamicShortcuts/issues)
+[![GitHub issues](https://img.shields.io/github/issues/LeLoomi/DynamicShortcuts?color=red)](https://github.com/LeLoomi/DynamicShortcuts/issues)
  - [x] Have the program generate the icons, day of month and weekday incl.
  - [x] The program can replace and reload the shortcut icon
  - [x] the program can automatically generates and set the icon in the background
