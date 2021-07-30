@@ -2,8 +2,8 @@
 My goal with this project is to write a Windows service and GUI, which let's you set desktop icons that'll dynamically change (.url's that is). The idea is to port the, for mobile calendar apps common, behaviour of changing the icon according to the current date and weekday since I found no way online to do this.
 
 **Development Progress**
-[![GitHub issues](https://img.shields.io/github/issues/LeLoomi/DynamicShortcuts?style=plastic)](https://github.com/LeLoomi/DynamicShortcuts/issues)
 
+[![GitHub issues](https://img.shields.io/github/issues/LeLoomi/DynamicShortcuts?style=plastic)](https://github.com/LeLoomi/DynamicShortcuts/issues)
  - [x] Have the program generate the icons, day of month and weekday incl.
  - [x] The program can replace and reload the shortcut icon
  - [x] the program can automatically generates and set the icon in the background
