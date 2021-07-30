@@ -1,11 +1,7 @@
-﻿using DynamicShortcuts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
-namespace DynamicShortcutsTheory
+namespace DynamicShortcuts
 {
     static class Program
     {
@@ -19,11 +15,9 @@ namespace DynamicShortcutsTheory
 
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] == "-runfullbgservice")     //if this argument is passed, the program will run no GUI in the BG, only updating the icons
+                if (args[i] == "-runfullbgservice" || args[i] == "runfullbgservice")     //if this argument is passed, the program will run no GUI in the BG, only updating the icons
                 {
-
-
-                    DynSFunctionality.fullRun(@"C:\Users\lohre\Desktop\iCloud Calendar.url");
+                    DynSFunctionality.fullRun(Properties.Settings.Default.savedShotcutPath);
                     return; //used to exit out and finish the program directly after the icon update
                 }
             }

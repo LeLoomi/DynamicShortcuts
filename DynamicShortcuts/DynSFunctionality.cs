@@ -16,17 +16,11 @@ namespace DynamicShortcuts
         //call this function to run a complete background check and, if needed, update
         public static void fullRun(string filePath)
         {
-            //if (!iconUpToDate(filePath)) currently disabled for testing
-            //{
-                Console.WriteLine("DynamicShortcuts: Icon is out of date (" + filePath + ")");
-
-                Console.WriteLine("DynamicShortcuts: Generating new icon with the name " + dailyFileName() + "(" + filePath + ")");
+            if (!iconUpToDate(filePath))
+            {
                 generateIcon();
-
-                Console.WriteLine("DynamicShortcuts: Updating the shortcut icon to '" + dailyFileName() + "' (" + filePath + ")");
                 updateIcon(filePath);
-            //}
-            //else Console.WriteLine("fullRun completed, icon was up to date. No chanes made.");
+            }
         }
 
 
