@@ -15,7 +15,6 @@ namespace DynamicShortcuts
             InitializeComponent();
         }
 
-
         //initiate full run
         private void fullRunButton_Click(object sender, EventArgs e)
         {
@@ -23,6 +22,7 @@ namespace DynamicShortcuts
                 DynSFunctionality.fullRun(Properties.Settings.Default.savedShotcutPath);
         }
 
+        //opens a filedialog to set the .url path
         private void browseButton_Click(object sender, EventArgs e)
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -38,14 +38,16 @@ namespace DynamicShortcuts
             }
         }
 
-        private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Properties.Settings.Default.Save(); //save the path input from the form into settings
-        }
-
+        //opens the GitHub page
         private void githubButton_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://GitHub.com/LeLoomi");
+        }
+        
+        //saves the settings (.url path)
+        private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save(); //save the path input from the form into settings
         }
     }
 }

@@ -2,15 +2,18 @@
 // | This is the core part of the program, all base logic and image gen etc. goes into this class! |
 // +-----------------------------------------------------------------------------------------------+
 
+using ImageMagick;          //for Icon creation
 using System;
-using System.IO;
+using System.Diagnostics;   //for running the cmd file
 using System.Drawing;
 using System.Drawing.Text;
-using System.Diagnostics;   //for running the cmd file
-using ImageMagick;          //for Icon creation
+using System.IO;
 
 namespace DynamicShortcuts
 {
+    /// <summary>
+    /// This class provides the core codebase for all functions of DynamicShortcuts.
+    /// </summary>
     public static class DynSFunctionality
     {
         //call this function to run a complete background check and, if needed, update
@@ -18,13 +21,14 @@ namespace DynamicShortcuts
         {
             if (!iconUpToDate(filePath))
             {
+                clearCache();
                 generateIcon();
                 updateIcon(filePath);
             }
         }
 
 
-
+        //this function generates the icon from scratch
         public static void generateIcon()
         {
             PrivateFontCollection pfc = new PrivateFontCollection();    //container to import custom font into
@@ -43,12 +47,6 @@ namespace DynamicShortcuts
 
             string originalPNGPath = AppDomain.CurrentDomain.BaseDirectory + @"\iconbase.png";   //init image file path
 
-            /*using (OpenFileDialog openFileDialog = new OpenFileDialog())    //load icon base image
-            {
-                openFileDialog.Filter = "PNG images|*.png;*.PNG";
-                openFileDialog.ShowDialog();
-                originalPNGPath = openFileDialog.FileName;
-            }*/
 
             string firstText = DateTime.Now.ToString("ddd").ToUpper();     //3 letter weekday text
             string secondText = DateTime.Now.ToString("dd");    //2 digit day of month text
@@ -74,10 +72,9 @@ namespace DynamicShortcuts
                 finishedBitmap = new Bitmap(resizedBitmap);
                 resizedBitmap.Dispose();
             }
-            
-            
 
-            FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"\" + saveName + ".ico", FileMode.OpenOrCreate); //open filestream to the ico save path (application location)
+
+            FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"\cache\" + saveName + ".ico", FileMode.OpenOrCreate); //open filestream to the ico save path (application location)
 
             ImageConverter imageConverter = new ImageConverter();
             byte[] byteBitmap = (byte[])imageConverter.ConvertTo(finishedBitmap, typeof(byte[]));
@@ -94,11 +91,10 @@ namespace DynamicShortcuts
         }
 
 
-
         //this function updates the shortcut raw to set the new ico path
         public static void updateIcon(string filePath)
         {
-            string updatedLine = "IconFile=" + AppDomain.CurrentDomain.BaseDirectory + dailyFileName() + ".ico";   //set the new line to be the correct filename
+            string updatedLine = "IconFile=" + AppDomain.CurrentDomain.BaseDirectory + @"\cache\" + dailyFileName() + ".ico";   //set the new line to be the correct filename
 
             lineChanger(updatedLine, filePath, 3);  //rewrite the shortcut content for the icon path
             lineChanger("IconIndex=0", filePath, 4); //rewrites the icon index just in case
@@ -112,6 +108,21 @@ namespace DynamicShortcuts
         }
 
 
+        //deletes all files in the cache folder
+        private static void clearCache()
+        {
+            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\cache\");
+
+            foreach (FileInfo file in dir.GetFiles())   //delete all files
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo folder in dir.GetDirectories())  //delete all folders and substuff
+            {
+                folder.Delete(true);
+            }
+        }
+
 
         //this bool returns true if the icon is currently up to date (via file name check)
         public static bool iconUpToDate(string filePath)
@@ -120,7 +131,7 @@ namespace DynamicShortcuts
             {
                 string content = reader.ReadToEnd();    //read the current shortcut data to memory
 
-                if(content.Contains(dailyFileName()))       //check if the shortcut contains the correct name, using dailyFileName() helper
+                if (content.Contains(dailyFileName()))       //check if the shortcut contains the correct name, using dailyFileName() helper
                 {
                     return true;    //if the contains return true then the icon is up to date
                 }
@@ -129,18 +140,16 @@ namespace DynamicShortcuts
         }
 
 
-
         //helper function to centralize the naming of the ico file, return the up to date core filename (e.g. "290721-Do"), no extension!
-        public static string dailyFileName()
+        private static string dailyFileName()
         {
             string tmp = DateTime.Now.ToString("ddMMyy") + "-" + DateTime.Now.ToString("ddd");  //puzzle the filename together
             return tmp; //return the name
         }
 
 
-
         //this function updates a specific line in a document, used to update the raw content of the shortcut. Taken from https://stackoverflow.com/a/35496185
-        static void lineChanger(string newText, string fileName, int line_to_edit)
+        private static void lineChanger(string newText, string fileName, int line_to_edit)
         {
             string[] arrLine = File.ReadAllLines(fileName);
             arrLine[line_to_edit - 1] = newText;
