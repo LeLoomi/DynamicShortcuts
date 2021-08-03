@@ -34,7 +34,11 @@ namespace DynamicShortcuts
                 else openFileDialog.InitialDirectory = Environment.SpecialFolder.DesktopDirectory.ToString();   //else just go to the desktop
 
                 openFileDialog.ShowDialog();    //show select dialog
-                pathTextbox.Text = openFileDialog.FileName; //set the selected file to the textbox
+                if (openFileDialog.FileName != "")   //to prevent empty paths hwen window is closed without selecting
+                {
+                    pathTextbox.Text = openFileDialog.FileName; //set the selected file to the textbox
+                    Properties.Settings.Default.Save(); //save the path input from the form into settings
+                }
             }
         }
 
