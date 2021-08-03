@@ -1,4 +1,5 @@
 ## DynamicShortcuts (iCloud Calendar)
+*This is a work in progress, use at own risk.*
 My goal with this project is to write a Windows service and GUI, which let's you set desktop icons that'll dynamically change (.url's that is). The idea is to port the, for mobile calendar apps common, behaviour of changing the icon according to the current date and weekday since I found no way online to do this.
 
 **Development Progress**
@@ -13,6 +14,5 @@ My goal with this project is to write a Windows service and GUI, which let's you
 
 [![GitHub issues](https://img.shields.io/github/issues/LeLoomi/DynamicShortcuts?color=red)](https://github.com/LeLoomi/DynamicShortcuts/issues)
 
-*This is a work in progress, using this is not recommended and if anything breaks it is not my resposibility.*
 *This project uses the external code, click [here](https://github.com/LeLoomi/DynamicShortcuts/blob/main/EXTERNAL-CODE.md) to see which.*
 *This project is written based on the .NET Framework version 4.8.*
