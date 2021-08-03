@@ -45,7 +45,7 @@ namespace DynamicShortcuts
         //opens the GitHub page
         private void githubButton_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://GitHub.com/LeLoomi");
+            System.Diagnostics.Process.Start("https://github.com/LeLoomi/DynamicShortcuts/blob/main/EXTERNAL-CODE.md");
         }
         
         //saves the settings (.url path)

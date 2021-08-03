@@ -2,7 +2,6 @@
 // | This is the core part of the program, all base logic and image gen etc. goes into this class! |
 // +-----------------------------------------------------------------------------------------------+
 
-using ImageMagick;          //for Icon creation
 using System;
 using System.Diagnostics;   //for running the cmd file
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace DynamicShortcuts
         public static void generateIcon()
         {
             PrivateFontCollection pfc = new PrivateFontCollection();    //container to import custom font into
-            pfc.AddFontFile(AppDomain.CurrentDomain.BaseDirectory + @"\MYRIADPRO-REGULAR.OTF"); //read the actual font to the family
+            pfc.AddFontFile(AppDomain.CurrentDomain.BaseDirectory + @"\MYRIADPRO-REGULAR.otf"); //read the actual font to the family
             Font firstCustomFont = new Font(pfc.Families[0], 55, FontStyle.Regular);    //create the two fonts (2 sizes) from the famlily
             Font secondCustomFont = new Font(pfc.Families[0], 115, FontStyle.Regular);
 
@@ -41,23 +40,21 @@ namespace DynamicShortcuts
             stringFormat.Alignment = StringAlignment.Center;
 
 
-            string weekday = DateTime.Now.ToString("ddd");  //get 3 letter weekday name
-            string saveName = DateTime.Now.ToString("ddMMyy") + "-" + weekday;   //get file name pattern
-
-
-            string originalPNGPath = AppDomain.CurrentDomain.BaseDirectory + @"\iconbase.png";   //init image file path
+            string originalPNGPath = AppDomain.CurrentDomain.BaseDirectory + @"\iconbase.png";   //init image file path to make the icons out of
 
 
             string firstText = DateTime.Now.ToString("ddd").ToUpper();     //3 letter weekday text
             string secondText = DateTime.Now.ToString("dd");    //2 digit day of month text
 
-
+            //set the text locations, these only work for an 256² image!
             PointF firstLocation = new PointF(128f, 70f);
             PointF secondLocation = new PointF(128f, 175f);
 
 
-            Bitmap finishedBitmap;
-            using (var bitmap = (Bitmap)Image.FromFile(originalPNGPath))//load the image file
+            string cachePath = AppDomain.CurrentDomain.BaseDirectory + @"\cache\";  //just for simplicity defined here
+            Bitmap finishedBitmap;  //defined here to be used in using and after
+            
+            using (Bitmap bitmap = (Bitmap)Image.FromFile(originalPNGPath))    //load the image file
             {
                 Bitmap resizedBitmap = new Bitmap(bitmap, new Size(256, 256));  //scale bitmap to fit win explorer 256²
 
@@ -73,21 +70,29 @@ namespace DynamicShortcuts
                 resizedBitmap.Dispose();
             }
 
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\cache\"))  //check if cache directory exists
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\cache\");  //if not, create it
 
-            FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"\cache\" + saveName + ".ico", FileMode.OpenOrCreate); //open filestream to the ico save path (application location)
 
-            ImageConverter imageConverter = new ImageConverter();
-            byte[] byteBitmap = (byte[])imageConverter.ConvertTo(finishedBitmap, typeof(byte[]));
-
-            using (MagickImage image = new MagickImage(byteBitmap))
+            int[] sizes = new int[] { 256, 128, 64, 32, 16};    //all the needed png sizes, after that we save the correct size for each of them by cycling through
+            foreach (int size in sizes)
             {
-                image.Settings.SetDefine("auto-resize", "256,128,96,64,48,32,16");
-                image.Settings.Format = MagickFormat.Icon;
-                image.Write(fs);
+                Bitmap png = new Bitmap(finishedBitmap, new Size(size, size));
+                png.Save(cachePath + size + ".png");
             }
 
-            fs.Close();     //clear memory
-            finishedBitmap.Dispose();   //clear memory
+            //read all the sizes to memory
+            using (var png256 = (Bitmap)Image.FromFile(cachePath + "256.png"))
+            using (var png128 = (Bitmap)Image.FromFile(cachePath + "128.png"))
+            using (var png64 = (Bitmap)Image.FromFile(cachePath + "64.png"))
+            using (var png32 = (Bitmap)Image.FromFile(cachePath + "32.png"))
+            using (var png16 = (Bitmap)Image.FromFile(cachePath + "16.png"))
+             
+            //open the stream / result ico path
+            using (var stream = new FileStream(cachePath + dailyFileName() + ".ico", FileMode.OpenOrCreate))  //open filestream to the ico save path (application location)
+            {
+                IconFactory.SavePngsAsIcon(new[] { png256, png128, png64, png32, png16 }, stream);  //use IconFactory to put them all into an ico at the cache folder, marked with the correct daily name
+            }
         }
 
 
@@ -111,6 +116,9 @@ namespace DynamicShortcuts
         //deletes all files in the cache folder
         private static void clearCache()
         {
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\cache\"))  //check if cache directory exists
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\cache\");  //if not, create it
+
             DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\cache\");
 
             foreach (FileInfo file in dir.GetFiles())   //delete all files

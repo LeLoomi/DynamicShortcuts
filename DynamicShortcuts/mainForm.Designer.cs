@@ -80,11 +80,12 @@ namespace DynamicShortcuts
             // 
             this.githubButton.FlatAppearance.BorderSize = 0;
             this.githubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.githubButton.ForeColor = System.Drawing.Color.DimGray;
             this.githubButton.Location = new System.Drawing.Point(-3, 96);
             this.githubButton.Name = "githubButton";
             this.githubButton.Size = new System.Drawing.Size(389, 32);
             this.githubButton.TabIndex = 12;
-            this.githubButton.Text = "Program by Eliah Lohr, GitHub.com/LeLoomi.";
+            this.githubButton.Text = "Program by Eliah Lohr, click here to see all external code used on Github.";
             this.githubButton.UseVisualStyleBackColor = true;
             this.githubButton.Click += new System.EventHandler(this.githubButton_Click);
             // 
