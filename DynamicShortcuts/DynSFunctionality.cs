@@ -5,6 +5,7 @@
 using System;
 using System.Diagnostics;   //for running the cmd file
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.IO;
 
@@ -63,6 +64,8 @@ namespace DynamicShortcuts
                     Brush dayBrush = new SolidBrush(Color.FromArgb(255, 254, 40, 41));
                     Brush dateBrush = new SolidBrush(Color.FromArgb(255, 30, 31, 30));
 
+                    //graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+
                     graphics.DrawString(firstText, firstCustomFont, dayBrush, firstLocation, stringFormat);       //here it all comes together and gets drawn
                     graphics.DrawString(secondText, secondCustomFont, dateBrush, secondLocation, stringFormat);
                 }
@@ -74,24 +77,40 @@ namespace DynamicShortcuts
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\cache\");  //if not, create it
 
 
-            int[] sizes = new int[] { 256, 128, 64, 32, 16};    //all the needed png sizes, after that we save the correct size for each of them by cycling through
+            int[] sizes = new int[] { 256, 128, 96, 80, 72, 64, 48, 32, 24, 16};    //all the needed png sizes, after that we save the correct size for each of them by cycling through
+            /*foreach (int size in sizes)
+            {
+                Bitmap png = new Bitmap(finishedBitmap, new Size(size, size));
+                png.Save(cachePath + size + ".png");
+            }*/
             foreach (int size in sizes)
             {
                 Bitmap png = new Bitmap(finishedBitmap, new Size(size, size));
+
+                Graphics graph = Graphics.FromImage(png);
+                graph.InterpolationMode = InterpolationMode.High;
+                graph.CompositingQuality = CompositingQuality.HighQuality;
+                graph.SmoothingMode = SmoothingMode.AntiAlias;
+                graph.DrawImage(png, new Rectangle(0, 0, size, size));
+
                 png.Save(cachePath + size + ".png");
             }
 
             //read all the sizes to memory
             using (var png256 = (Bitmap)Image.FromFile(cachePath + "256.png"))
             using (var png128 = (Bitmap)Image.FromFile(cachePath + "128.png"))
+            using (var png96 = (Bitmap)Image.FromFile(cachePath + "96.png"))
+            using (var png80 = (Bitmap)Image.FromFile(cachePath + "80.png"))
             using (var png64 = (Bitmap)Image.FromFile(cachePath + "64.png"))
+            using (var png48 = (Bitmap)Image.FromFile(cachePath + "48.png"))
             using (var png32 = (Bitmap)Image.FromFile(cachePath + "32.png"))
+            using (var png24 = (Bitmap)Image.FromFile(cachePath + "24.png"))
             using (var png16 = (Bitmap)Image.FromFile(cachePath + "16.png"))
              
             //open the stream / result ico path
             using (var stream = new FileStream(cachePath + dailyFileName() + ".ico", FileMode.OpenOrCreate))  //open filestream to the ico save path (application location)
             {
-                IconFactory.SavePngsAsIcon(new[] { png256, png128, png64, png32, png16 }, stream);  //use IconFactory to put them all into an ico at the cache folder, marked with the correct daily name
+                IconFactory.SavePngsAsIcon(new[] { png256, png128, png96, png80, png64, png48, png32, png24, png16 }, stream);  //use IconFactory to put them all into an ico at the cache folder, marked with the correct daily name
             }
         }
 
