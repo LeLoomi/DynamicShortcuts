@@ -15,3 +15,4 @@ My goal with this project is to write a Windows service and GUI, which let's you
 
 *This is a work in progress, using this is not recommended and if anything breaks it is not my resposibility.*
 *This project uses the external code, click [here](https://github.com/LeLoomi/DynamicShortcuts/blob/main/EXTERNAL-CODE.md) to see which.*
+*This project is written based on the .NET Framework version 4.8.*
